@@ -8,7 +8,7 @@ from setuptools import setup
 
 LXD_PROVIDER_VERSION = "1.5.0"
 
-RELEASE_VERSION = "3"
+RELEASE_VERSION = "4"
 
 __version__ = f"{LXD_PROVIDER_VERSION}.post{RELEASE_VERSION}"
 
@@ -45,13 +45,15 @@ setup(
     },
 )
 
-_ROOT = os.path.abspath(os.path.dirname(__file__))
+package_directory = os.path.abspath(os.path.dirname(__file__))
 
-makedirs(f"/root/.terraform.d/plugins/registry.terraform.io/terraform-lxd/lxd/"
-         f"{LXD_PROVIDER_VERSION}/linux_amd64", exist_ok=True)
+home_directory = os.environ['HOME']
+plugin_directory = f"{home_directory}/.terraform.d/plugins/" \
+                   f"registry.terraform.io/terraform-lxd/lxd/" \
+                   f"{LXD_PROVIDER_VERSION}/linux_amd64"
+makedirs(plugin_directory, exist_ok=True)
 try:
-    shutil.copy2(os.path.join(_ROOT, 'lib', FILE_NAME),
-                 f"/root/.terraform.d/plugins/registry.terraform.io/"
-                 f"terraform-lxd/lxd/{LXD_PROVIDER_VERSION}/linux_amd64")
+    shutil.copy2(os.path.join(package_directory, 'lib', FILE_NAME),
+                 plugin_directory)
 except Exception as msg:
     print(msg)
