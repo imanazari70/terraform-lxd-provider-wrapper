@@ -31,11 +31,7 @@ setup(
     author_email="azari@mahsan.co",
     url="https://github.com/imanazari70/terraform-lxd-provider-wrapper",
     py_modules=["terraform_lxd_provider_wrapper"],
-    data_files=[
-       (f"/root/.terraform.d/plugins/registry.terraform.io/terraform-lxd/lxd/"
-        f"{LXD_PROVIDER_VERSION}/linux_amd64",
-        [f"lib/{FILE_NAME}"]),
-    ],
+    data_files=[("lib", [f"lib/{FILE_NAME}"]), ],
     cmdclass={'bdist_wheel': bdist_wheel},
     entry_points={
         "console_scripts": [
